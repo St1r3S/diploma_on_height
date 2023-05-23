@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:postgresql://localhost:5432/on_height
+    username: admin
+    password: 1111
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+
