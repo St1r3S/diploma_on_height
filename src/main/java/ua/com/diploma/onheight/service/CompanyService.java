@@ -4,4 +4,5 @@ import ua.com.diploma.onheight.model.company.Company;
 
 public interface CompanyService extends CrudService<Company, Long> {
 
+    Company findByCompanyName(String companyName);
 }

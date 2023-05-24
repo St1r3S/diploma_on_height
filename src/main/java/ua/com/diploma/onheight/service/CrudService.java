@@ -27,6 +27,4 @@ public interface CrudService<T, K> {
     void deleteAll(List<T> entities);
 
     void deleteAll();
-
-
 }
