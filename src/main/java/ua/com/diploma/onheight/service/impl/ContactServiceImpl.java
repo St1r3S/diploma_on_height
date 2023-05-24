@@ -42,7 +42,7 @@ public class ContactServiceImpl implements ContactService {
     @Transactional(readOnly = true)
     public Contact findById(Long id) {
         return contactRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such contact with id " + id, 1));
     }
 
     @Override
@@ -117,5 +117,11 @@ public class ContactServiceImpl implements ContactService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Contact> findAllByCompanyId(Long companyId) {
+        return contactRepository.findAllByCompanyId(companyId);
     }
 }

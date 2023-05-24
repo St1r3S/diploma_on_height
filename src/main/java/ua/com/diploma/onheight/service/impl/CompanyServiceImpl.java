@@ -43,7 +43,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public Company findById(Long id) {
         return companyRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such company with id " + id, 1));
     }
 
     @Override
@@ -118,5 +118,13 @@ public class CompanyServiceImpl implements CompanyService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Company findByCompanyName(String companyName) {
+        return companyRepository.findByCompanyName(companyName).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such company with id " + companyName, 1));
+
     }
 }

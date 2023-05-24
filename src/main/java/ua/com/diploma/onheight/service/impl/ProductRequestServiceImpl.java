@@ -43,7 +43,7 @@ public class ProductRequestServiceImpl implements ProductRequestService {
     @Transactional(readOnly = true)
     public ProductRequest findById(ProductRequestKey id) {
         return productRequestRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such product_request entity with id " + id, 1));
     }
 
     @Override
@@ -118,5 +118,11 @@ public class ProductRequestServiceImpl implements ProductRequestService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer findProductQtySumByProductId(Long productId) {
+        return productRequestRepository.findProductQtySumByProductId(productId);
     }
 }

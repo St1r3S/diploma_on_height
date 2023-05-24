@@ -42,7 +42,7 @@ public class AddressServiceImpl implements AddressService {
     @Transactional(readOnly = true)
     public Address findById(Long id) {
         return addressRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such address with id " + id, 1));
     }
 
     @Override
@@ -117,5 +117,17 @@ public class AddressServiceImpl implements AddressService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Address> findAllByCountryAndCity(String country, String city) {
+        return addressRepository.findAllByCountryAndCity(country, city);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Address> findAllByAddress(String address) {
+        return addressRepository.findAllByAddress(address);
     }
 }

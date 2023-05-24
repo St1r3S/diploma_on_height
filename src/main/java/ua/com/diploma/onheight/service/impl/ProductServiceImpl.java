@@ -4,10 +4,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.diploma.onheight.model.product.Product;
+import ua.com.diploma.onheight.model.product.ProductType;
 import ua.com.diploma.onheight.repository.ProductRepository;
 import ua.com.diploma.onheight.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -42,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such product with id " + id, 1));
     }
 
     @Override
@@ -117,5 +119,30 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findAllByProductType(ProductType productType) {
+        return productRepository.findAllByProductType(productType);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findAllByCompanyId(Long companyId) {
+        return productRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Product findByProductTypeAndProductNameAndWarehouseIdAndCompanyId(ProductType productType, String productName, Long warehouseId, Long companyId) {
+        return productRepository.findByProductTypeAndProductNameAndWarehouseIdAndCompanyId(productType, productName, warehouseId, companyId).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such product with parameters: " +
+                        Map.of(
+                                "productType", productType.getKey(),
+                                "productName", productName,
+                                "warehouseId", warehouseId.toString(),
+                                "companyId", companyId.toString()
+                        ), 1));
     }
 }

@@ -3,6 +3,8 @@ package ua.com.diploma.onheight.service.impl;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.diploma.onheight.model.user.Department;
+import ua.com.diploma.onheight.model.user.Post;
 import ua.com.diploma.onheight.model.user.User;
 import ua.com.diploma.onheight.model.user.UserRole;
 import ua.com.diploma.onheight.repository.UserRepository;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
+
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -145,5 +147,29 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<User> findAllByBirthday(LocalDate birthday) {
         return userRepository.findAllByBirthday(birthday);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllByDepartment(Department department) {
+        return userRepository.findAllByDepartment(department);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllByPost(Post post) {
+        return userRepository.findAllByPost(post);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllByDepartmentAndPost(Department department, Post post) {
+        return userRepository.findAllByDepartmentAndPost(department, post);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllByCompanyId(Long companyId) {
+        return userRepository.findAllByCompanyId(companyId);
     }
 }

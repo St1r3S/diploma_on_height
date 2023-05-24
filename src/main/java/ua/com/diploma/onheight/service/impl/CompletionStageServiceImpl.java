@@ -42,7 +42,7 @@ public class CompletionStageServiceImpl implements CompletionStageService {
     @Transactional(readOnly = true)
     public CompletionStage findById(Long id) {
         return completionStageRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such completion stage with id " + id, 1));
     }
 
     @Override

@@ -3,7 +3,10 @@ package ua.com.diploma.onheight.service.impl;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.diploma.onheight.model.request.DeliveryMethod;
+import ua.com.diploma.onheight.model.request.PaymentMethod;
 import ua.com.diploma.onheight.model.request.Request;
+import ua.com.diploma.onheight.model.request.RequestStatus;
 import ua.com.diploma.onheight.repository.RequestRepository;
 import ua.com.diploma.onheight.service.RequestService;
 
@@ -42,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
     public Request findById(Long id) {
         return requestRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such request with id " + id, 1));
     }
 
     @Override
@@ -117,5 +120,29 @@ public class RequestServiceImpl implements RequestService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyId(Long companyId) {
+        return requestRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyIdAndDeliveryMethod(Long companyId, DeliveryMethod deliveryMethod) {
+        return requestRepository.findAllByCompanyIdAndDeliveryMethod(companyId, deliveryMethod);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyIdAndPaymentMethod(Long companyId, PaymentMethod paymentMethod) {
+        return requestRepository.findAllByCompanyIdAndPaymentMethod(companyId, paymentMethod);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyIdAndCompletionStage_RequestStatus(Long companyId, RequestStatus requestStatus) {
+        return requestRepository.findAllByCompanyIdAndCompletionStage_RequestStatus(companyId, requestStatus);
     }
 }

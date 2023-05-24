@@ -4,6 +4,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.diploma.onheight.model.warehouse.Warehouse;
+import ua.com.diploma.onheight.model.warehouse.WarehouseClassification;
 import ua.com.diploma.onheight.repository.WarehouseRepository;
 import ua.com.diploma.onheight.service.WarehouseService;
 
@@ -42,7 +43,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     public Warehouse findById(Long id) {
         return warehouseRepository.findById(id).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such academic year with id " + id, 1));
+                () -> new EmptyResultDataAccessException("There's no such warehouse with id " + id, 1));
     }
 
     @Override
@@ -117,5 +118,23 @@ public class WarehouseServiceImpl implements WarehouseService {
         } catch (Exception ex) {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Warehouse> findAllByClassification(WarehouseClassification classification) {
+        return warehouseRepository.findAllByClassification(classification);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Warehouse> findAllByCompanyId(Long companyId) {
+        return warehouseRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Warehouse> findAllByCompanyIdAndClassification(Long companyId, WarehouseClassification classification) {
+        return warehouseRepository.findAllByCompanyIdAndClassification(companyId, classification);
     }
 }
