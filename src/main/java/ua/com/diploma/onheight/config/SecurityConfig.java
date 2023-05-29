@@ -5,13 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import ua.com.diploma.onheight.model.user.Permission;
 import ua.com.diploma.onheight.model.user.UserRole;
 
 @Configuration
@@ -19,38 +21,43 @@ import ua.com.diploma.onheight.model.user.UserRole;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+//    private final UserDetailsService userDetailsService;
+//
+//    public SecurityConfig(UserDetailsService userDetailsService) {
+//        this.userDetailsService = userDetailsService;
+//    }
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        return http
-                .authorizeRequests()
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/**").hasAnyAuthority(
-                        UserRole.ADMIN.getKey(),
-                        UserRole.USER.getKey(),
-                        UserRole.GUEST.getKey()
-                )
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/auth/success")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
-                .logoutSuccessUrl("/auth/login")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .and()
-                .exceptionHandling().accessDeniedPage("/auth/forbidden")
-                .and().build();
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(
+                        authorize -> authorize
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                                .requestMatchers("/**").hasAnyAuthority(
+                                        Permission.USER_READ.getPermission(),
+                                        Permission.USER_WRITE.getPermission()
+                                )
+                                .anyRequest().authenticated()
+                ).formLogin(
+                        form -> form
+                                .loginPage("/auth/login")
+                                .loginProcessingUrl("/auth/login")
+                                .defaultSuccessUrl("/auth/success", true)
+                                .permitAll()
+                ).logout(
+                        logout -> logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessUrl("/")
+                                .invalidateHttpSession(true)
+                                .clearAuthentication(true)
+                                .deleteCookies("JSESSIONID")
+                                .permitAll()
+                ).exceptionHandling(handler -> handler
+                        .accessDeniedPage("/auth/forbidden")
+                );
+        return http.build();
     }
 
 
@@ -69,16 +76,15 @@ public class SecurityConfig {
 
     @Bean
     protected UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder().username("admin")
-                        .password(passwordEncoder().encode("admin"))
-                        .authorities(UserRole.ADMIN.getAuthorities())
-                        .build(),
-                User.builder().username("user")
-                        .password(passwordEncoder().encode("user"))
-                        .authorities(UserRole.USER.getAuthorities())
-                        .build()
-        );
+        UserDetails user = User.builder().username("user")
+                .password(passwordEncoder().encode("user"))
+                .authorities(UserRole.USER.getAuthorities())
+                .build();
+        UserDetails admin = User.builder().username("admin")
+                .password(passwordEncoder().encode("admin"))
+                .authorities(UserRole.ADMIN.getAuthorities())
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
 
