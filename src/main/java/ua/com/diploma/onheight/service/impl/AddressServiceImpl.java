@@ -130,4 +130,11 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> findAllByAddress(String address) {
         return addressRepository.findAllByAddress(address);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Address findByCountryAndCityAndAddressAndZipCode(String country, String city, String address, String zipCode) {
+        return addressRepository.findByCountryAndCityAndAddressAndZipCode(country, city, address, zipCode).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such address with passed parameters!", 1));
+    }
 }

@@ -122,6 +122,12 @@ public class ProductRequestServiceImpl implements ProductRequestService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<ProductRequest> findAllByRequestId(Long requestId) {
+        return productRequestRepository.findAllByRequestId(requestId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Integer findProductQtySumByProductId(Long productId) {
         return productRequestRepository.findProductQtySumByProductId(productId);
     }

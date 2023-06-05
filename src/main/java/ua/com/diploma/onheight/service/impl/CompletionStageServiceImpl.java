@@ -118,4 +118,11 @@ public class CompletionStageServiceImpl implements CompletionStageService {
             throw new EmptyResultDataAccessException("Unable to delete all entities ", 1);
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CompletionStage findByRequestId(Long requestId) {
+        return completionStageRepository.findByRequestId(requestId).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such completion stage with requestId " + requestId, 1));
+    }
 }

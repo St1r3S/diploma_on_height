@@ -135,6 +135,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Product> findAllByWarehouseId(Long warehouseId) {
+        return productRepository.findAllByWarehouseId(warehouseId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findAllByWarehouseIdAndProductType(Long warehouseId, ProductType productType) {
+        return productRepository.findAllByWarehouseIdAndProductType(warehouseId, productType);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findAllByWarehouseIdAndProductName(Long warehouseId, String productName) {
+        return productRepository.findAllByWarehouseIdAndProductName(warehouseId, productName);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Product findByProductTypeAndProductNameAndWarehouseIdAndCompanyId(ProductType productType, String productName, Long warehouseId, Long companyId) {
         return productRepository.findByProductTypeAndProductNameAndWarehouseIdAndCompanyId(productType, productName, warehouseId, companyId).orElseThrow(
                 () -> new EmptyResultDataAccessException("There's no such product with parameters: " +
