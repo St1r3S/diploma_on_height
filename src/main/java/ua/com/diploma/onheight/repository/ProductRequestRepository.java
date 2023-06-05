@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 import ua.com.diploma.onheight.model.manytomany.ProductRequest;
 import ua.com.diploma.onheight.model.manytomany.utility.ProductRequestKey;
 
+import java.util.List;
+
 @Repository
 public interface ProductRequestRepository extends JpaRepository<ProductRequest, ProductRequestKey> {
+
+    List<ProductRequest> findAllByRequestId(Long requestId);
 
     @Query("SELECT SUM(pr.productQty) FROM ProductRequest pr WHERE pr.product.id = :productId")
     Integer findProductQtySumByProductId(@Param("productId") Long productId);
