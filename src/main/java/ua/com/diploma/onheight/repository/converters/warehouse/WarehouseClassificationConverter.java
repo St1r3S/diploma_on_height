@@ -6,7 +6,7 @@ import ua.com.diploma.onheight.model.warehouse.WarehouseClassification;
 
 @Converter(autoApply = true)
 public class WarehouseClassificationConverter implements AttributeConverter<WarehouseClassification, String> {
-    
+
     @Override
     public String convertToDatabaseColumn(WarehouseClassification warehouseClassification) {
         if (warehouseClassification == null) {
@@ -20,6 +20,6 @@ public class WarehouseClassificationConverter implements AttributeConverter<Ware
         if (s == null) {
             return null;
         }
-        return WarehouseClassification.get(s);
+        return WarehouseClassification.getByKey(s);
     }
 }

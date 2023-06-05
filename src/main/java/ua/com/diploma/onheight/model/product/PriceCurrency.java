@@ -21,9 +21,18 @@ public enum PriceCurrency {
         this.value = value;
     }
 
-    public static PriceCurrency get(String key) {
+    public static PriceCurrency getByKey(String key) {
         for (PriceCurrency c : values()) {
             if (c.getKey().equals(key)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public static PriceCurrency getByValue(String value) {
+        for (PriceCurrency c : values()) {
+            if (c.getValue().equals(value)) {
                 return c;
             }
         }

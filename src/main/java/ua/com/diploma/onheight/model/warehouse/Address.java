@@ -32,25 +32,25 @@ public class Address {
     @NotEmpty(message = "{NotEmpty.Entity.Field}")
     private String address;
 
-    @Column(name = "zip_or_postcode", nullable = false)
+    @Column(name = "zip_code", nullable = false)
     @NotEmpty(message = "{NotEmpty.Entity.Field}")
-    private String zipOrPostcode;
+    private String zipCode;
 
     @Column(name = "last_update", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent(message = "{PastOrPresent.Entity.Date}")
     private LocalDate lastUpdate;
 
-    public Address(Long id, String country, String city, String address, String zipOrPostcode, LocalDate lastUpdate) {
+    public Address(Long id, String country, String city, String address, String zipCode, LocalDate lastUpdate) {
         this.id = id;
         this.country = country;
         this.city = city;
         this.address = address;
-        this.zipOrPostcode = zipOrPostcode;
+        this.zipCode = zipCode;
         this.lastUpdate = lastUpdate;
     }
 
-    public Address(String country, String city, String address, String zipOrPostcode, LocalDate lastUpdate) {
-        this(null, country, city, address, zipOrPostcode, lastUpdate);
+    public Address(String country, String city, String address, String zipCode, LocalDate lastUpdate) {
+        this(null, country, city, address, zipCode, lastUpdate);
     }
 }

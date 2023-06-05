@@ -17,9 +17,18 @@ public enum DeliveryMethod {
         this.value = value;
     }
 
-    public static DeliveryMethod get(String key) {
+    public static DeliveryMethod getByKey(String key) {
         for (DeliveryMethod m : values()) {
             if (m.getKey().equals(key)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public static DeliveryMethod getByValue(String value) {
+        for (DeliveryMethod m : values()) {
+            if (m.getValue().equals(value)) {
                 return m;
             }
         }

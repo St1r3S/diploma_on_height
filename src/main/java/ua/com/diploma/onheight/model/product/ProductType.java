@@ -21,9 +21,18 @@ public enum ProductType {
         this.value = value;
     }
 
-    public static ProductType get(String key) {
+    public static ProductType getByKey(String key) {
         for (ProductType t : values()) {
             if (t.getKey().equals(key)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public static ProductType getByValue(String value) {
+        for (ProductType t : values()) {
+            if (t.getValue().equals(value)) {
                 return t;
             }
         }

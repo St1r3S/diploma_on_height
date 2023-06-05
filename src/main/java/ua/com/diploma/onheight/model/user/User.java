@@ -47,12 +47,12 @@ public class User {
 
     @Column(name = "username", unique = true, nullable = false)
     @NotEmpty(message = "{NotEmpty.Entity.Field}")
-    @Size(min = 5, message = "{Size.User.Username}")
+    @Size(min = 4, message = "{Size.User.Username}")
     private String username;
 
     @Column(name = "password_hash", nullable = false)
     @NotEmpty(message = "{NotEmpty.Entity.Field}")
-    @Size(min = 5, message = "{Size.User.Password}")
+    @Size(min = 4, message = "{Size.User.Password}")
     private String passwordHash;
 
     @Column(name = "birthday", nullable = false)

@@ -20,6 +20,6 @@ public class PriceCurrencyConverter implements AttributeConverter<PriceCurrency,
         if (s == null) {
             return null;
         }
-        return PriceCurrency.get(s);
+        return PriceCurrency.getByKey(s);
     }
 }

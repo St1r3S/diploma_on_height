@@ -20,6 +20,6 @@ public class ProductTypeConverter implements AttributeConverter<ProductType, Str
         if (s == null) {
             return null;
         }
-        return ProductType.get(s);
+        return ProductType.getByKey(s);
     }
 }
