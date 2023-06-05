@@ -34,7 +34,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
         Request request2 = new Request(2L, "Jane", "Smith", "jane.smith@example.com", "987654321", null, DeliveryMethod.COURIER, "Address 2", PaymentMethod.CASH, null);
-        List<Request> requests = List.of(request1, request2);
         List<Request> expected = List.of(request1, request2);
 
         when(requestRepository.findAllByCompanyId(companyId)).thenReturn(expected);
@@ -48,7 +47,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         String lastName = "Doe";
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
-        List<Request> requests = List.of(request1);
         List<Request> expected = List.of(request1);
 
         when(requestRepository.findAllByCompanyIdAndLastName(companyId, lastName)).thenReturn(expected);
@@ -62,7 +60,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         String email = "john.doe@example.com";
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
-        List<Request> requests = List.of(request1);
         List<Request> expected = List.of(request1);
 
         when(requestRepository.findAllByCompanyIdAndEmail(companyId, email)).thenReturn(expected);
@@ -76,7 +73,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         DeliveryMethod deliveryMethod = DeliveryMethod.COURIER;
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
-        List<Request> requests = List.of(request1);
         List<Request> expected = List.of(request1);
 
         when(requestRepository.findAllByCompanyIdAndDeliveryMethod(companyId, deliveryMethod)).thenReturn(expected);
@@ -90,7 +86,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         PaymentMethod paymentMethod = PaymentMethod.CARD;
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
-        List<Request> requests = List.of(request1);
         List<Request> expected = List.of(request1);
 
         when(requestRepository.findAllByCompanyIdAndPaymentMethod(companyId, paymentMethod)).thenReturn(expected);
@@ -104,7 +99,6 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         RequestStatus requestStatus = RequestStatus.CONFIRMED;
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
-        List<Request> requests = List.of(request1);
         List<Request> expected = List.of(request1);
 
         when(requestRepository.findAllByCompanyIdAndCompletionStage_RequestStatus(companyId, requestStatus)).thenReturn(expected);
