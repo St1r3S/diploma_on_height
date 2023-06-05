@@ -20,6 +20,6 @@ public class RequestStatusConverter implements AttributeConverter<RequestStatus,
         if (s == null) {
             return null;
         }
-        return RequestStatus.get(s);
+        return RequestStatus.getByKey(s);
     }
 }

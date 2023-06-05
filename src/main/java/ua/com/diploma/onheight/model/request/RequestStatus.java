@@ -16,9 +16,18 @@ public enum RequestStatus {
         this.value = value;
     }
 
-    public static RequestStatus get(String key) {
+    public static RequestStatus getByKey(String key) {
         for (RequestStatus s : values()) {
             if (s.getKey().equals(key)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public static RequestStatus getByValue(String value) {
+        for (RequestStatus s : values()) {
+            if (s.getValue().equals(value)) {
                 return s;
             }
         }

@@ -6,6 +6,7 @@ import ua.com.diploma.onheight.model.request.DeliveryMethod;
 
 @Converter(autoApply = true)
 public class DeliveryMethodConverter implements AttributeConverter<DeliveryMethod, String> {
+
     @Override
     public String convertToDatabaseColumn(DeliveryMethod deliveryMethod) {
         if (deliveryMethod == null) {
@@ -19,6 +20,6 @@ public class DeliveryMethodConverter implements AttributeConverter<DeliveryMetho
         if (s == null) {
             return null;
         }
-        return DeliveryMethod.get(s);
+        return DeliveryMethod.getByKey(s);
     }
 }

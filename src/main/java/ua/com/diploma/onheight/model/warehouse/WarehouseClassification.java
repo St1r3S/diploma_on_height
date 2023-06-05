@@ -19,9 +19,18 @@ public enum WarehouseClassification {
         this.value = value;
     }
 
-    public static WarehouseClassification get(String key) {
+    public static WarehouseClassification getByKey(String key) {
         for (WarehouseClassification c : values()) {
             if (c.getKey().equals(key)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public static WarehouseClassification getByValue(String value) {
+        for (WarehouseClassification c : values()) {
+            if (c.getValue().equals(value)) {
                 return c;
             }
         }
