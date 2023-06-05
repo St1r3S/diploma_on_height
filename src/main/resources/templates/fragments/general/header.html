@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:fragment="head">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+        <link th:href="@{/css/style.css}" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    </th:block>
+    <title>Header fragment</title>
+</head>
+<body>
+<th:block th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-dark">
+        <div class="container-fluid headerFont">
+            <a class="navbar-brand text-white" href="/">OnHeight CRM</a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav flex-grow-1">
+                    <a aria-current="page" class="nav-link active text-white"
+                       th:href="@{/request/list}"> Заявки</a>
+                    <a aria-current="page" class="nav-link active text-white" th:href="@{/warehouse/list}">Склади</a>
+                    <a aria-current="page" class="nav-link active text-white" th:href="@{/contact/list}">Контакти</a>
+                    <a aria-current="page" class="nav-link active text-white" th:href="@{/report/charts}">Звіти</a>
+                </div>
+            </div>
+            <div class="d-flex">
+                <a href="/user/profile" sec:authorize="isAuthenticated()" th:text="${#authentication.getName()}"
+                   class="mr-3 justify-content-center align-self-center"
+                   id="userLoginHeader"></a>
+                <a href="/auth/login" sec:authorize="isAnonymous()"
+                   class="mr-3 justify-content-center align-self-center"
+                   id="anonymousLoginHeader">Гість</a>
+                <form name="loginForm" action="/auth/login" method="post" sec:authorize="isAnonymous()">
+                    <button class="btn btn-outline-light" type="submit">Увійти</button>
+                </form>
+                <form name="logoutForm" action="/auth/logout" method="post" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-outline-light" type="submit">Вийти</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>

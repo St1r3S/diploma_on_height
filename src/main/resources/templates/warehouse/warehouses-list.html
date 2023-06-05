@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Warehouses</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container my-3">
+            <h2 class=" text-center">Склади</h2>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <form method="get" th:href="@{/warehouse/list}">
+                        <div class="input-group">
+                            <input id="searchValue"
+                                   name="searchValue"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Шукати за параметром...">
+                            <button class="btn btn-outline-secondary" type="submit">Шукати</button>
+                        </div>
+                        <small>
+                            <div class="form-check form-check-inline searchbar-push">
+                                <input class="form-check-input" type="radio" name="searchParam" id="classification"
+                                       value="classification">
+                                <label class="form-check-label" for="classification">Класифікація</label>
+                            </div>
+                        </small>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <div class="btn-group" role="group" aria-label="Warehouse Actions">
+                        <a class="btn btn-primary" th:href="@{/warehouse/create}">
+                            <i class="bi bi-plus"></i></a>
+                        <a class="btn btn-secondary" th:href="@{/warehouse/list}">
+                            <i class="bi bi-arrow-clockwise"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 th:if="${#lists.isEmpty(warehouses)}">Склади не знайдено!</h2>
+            </div>
+            <div th:if="${not #lists.isEmpty(warehouses)}">
+                <div class="table-responsive mb-3">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Країна</th>
+                            <th>Місто</th>
+                            <th>Адреса</th>
+                            <th>Поштовий індекс</th>
+                            <th>Класифікація</th>
+                            <th>Номер тел. власника</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="warehouse : ${warehouses}">
+                            <td th:text="${warehouse.address.country}"></td>
+                            <td th:text="${warehouse.address.city}"></td>
+                            <td th:text="${warehouse.address.address}"></td>
+                            <td th:text="${warehouse.address.zipCode}"></td>
+                            <td th:text="${warehouse.classification.value}"></td>
+                            <td th:text="${warehouse.phoneNumber}"></td>
+                            <td class="align-middle">
+                                <a class="btn btn-primary"
+                                   th:href="@{/warehouse/edit/{id}(id=${warehouse.id})}"><i
+                                        class="bi bi-pencil"></i></a>
+                            </td>
+                            <td class="align-middle">
+                                <a class="btn btn-danger"
+                                   th:href="@{/warehouse/delete/{id}(id=${warehouse.id})}">
+                                    <i class="bi bi-trash"></i></a>
+                            </td>
+                            <td class="align-middle">
+                                <a class="btn btn-success"
+                                   th:href="@{/product/list(warehouseId=${warehouse.id})}">
+                                    Товари
+                                    <i class="bi bi-arrow-right-circle"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

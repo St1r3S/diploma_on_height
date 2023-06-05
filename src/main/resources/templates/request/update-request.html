@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Update request</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container mt-3">
+            <h2 class=" text-center">Редагування заявки</h2>
+            <hr>
+            <form th:action="@{/request/update/{id}(id=${requestView.id})}" th:object="${requestView}" method="POST">
+                <input class="form-control"
+                       id="company"
+                       name="company.id"
+                       th:value="${companyId}"
+                       type="hidden">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="firstName">Ім'я</label>
+                            <input class="form-control"
+                                   id="firstName"
+                                   th:field="*{firstName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{firstName}"
+                                  th:if="${#fields.hasErrors('firstName')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="lastName">Прізвище</label>
+                            <input class="form-control"
+                                   id="lastName"
+                                   th:field="*{lastName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{lastName}"
+                                  th:if="${#fields.hasErrors('lastName')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="email">Електрона пошта</label>
+                            <input class="form-control"
+                                   id="email"
+                                   th:field="*{email}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="phoneNumber">Номер телефону</label>
+                            <input class="form-control"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   pattern="^\+380\d{9}$"
+                                   placeholder="+380XXXXXXXXX"
+                                   th:field="*{phoneNumber}"
+                                   type="tel">
+                            <small>Приклад: +380971234567</small>
+                            <span class="text-danger" th:errors="*{phoneNumber}"
+                                  th:if="${#fields.hasErrors('phoneNumber')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-4">
+                        <label for="product" class="col-form-label">Назва товару</label>
+                        <select class="form-select" id="product" th:field="*{productRequest.product.id}" required>
+                            <option th:each="product : ${products}"
+                                    th:text="${product.productName}"
+                                    th:value="${product.id}"
+                                    th:data-unitPrice="${product.unitPrice}"
+                                    th:data-currency="${product.priceCurrency}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="quantity" class="col-form-label">Кіль-сть</label>
+                        <input type="number" class="form-control" id="quantity" th:field="*{productRequest.productQty}"
+                               min="1"
+                               max="7"
+                               required>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="totalPrice" class="col-form-label">Ітогова ціна</label>
+                        <input type="text" class="form-control" id="totalPrice"
+                               readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="requestStatus" class="col-form-label">Статус заявки</label>
+                        <select class="form-select" id="requestStatus"
+                                th:field="*{completionStage.requestStatus}" required>
+                            <option th:each="status : ${requestStatuses}" th:text="${status.value}"
+                                    th:value="${status}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-4">
+                        <label for="deliveryMethod" class="col-form-label">Метод доставки</label>
+                        <select class="form-select" id="deliveryMethod" th:field="*{deliveryMethod}" required>
+                            <option th:each="dM : ${deliveryMethods}" th:text="${dM.value}"
+                                    th:value="${dM}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="deliveryAddress">Адреса доставки</label>
+                            <input class="form-control"
+                                   id="deliveryAddress"
+                                   th:field="*{deliveryAddress}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{deliveryAddress}"
+                                  th:if="${#fields.hasErrors('deliveryAddress')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="paymentMethod" class="col-form-label">Метод оплати</label>
+                        <select class="form-select" id="paymentMethod" th:field="*{paymentMethod}" required>
+                            <option th:each="pM : ${paymentMethods}" th:text="${pM.value}"
+                                    th:value="${pM}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="comment" class="col-form-label">Коментар до заявки</label>
+                        <textarea class="form-control" id="comment" name="comment" th:field="*{comment}"></textarea>
+                        <span class="text-danger" th:errors="*{comment}"
+                              th:if="${#fields.hasErrors('comment')}"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-grid gap-2 col-3">
+                        <a class="btn btn-secondary" th:href="@{/request/list}">Назад
+                        </a>
+                    </div>
+                    <div class="d-grid gap-2 me-2 col-3">
+                        <button class="btn btn-primary" type="submit">Зберегти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/js/changeTotalPrice.js}"></script>
+</body>
+</html>

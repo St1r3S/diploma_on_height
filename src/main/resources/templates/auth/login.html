@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}"></div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <h3 class=" text-center">Авторизація</h3>
+                    <hr>
+                    <form method="post" action="/auth/login">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Логін</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary" id="logInBtn">Увійти</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="text-decoration-none"><small>Не маєте аккаунту? <a href="/auth/register">Зареєструватися</a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

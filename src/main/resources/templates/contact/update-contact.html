@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Update contact</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container mt-3">
+            <h2 class=" text-center">Контакт</h2>
+            <hr>
+            <form th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}" method="POST">
+                <input class="form-control"
+                       id="company"
+                       name="company.id"
+                       th:value="${companyId}"
+                       type="hidden">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="firstName">Ім'я</label>
+                            <input class="form-control"
+                                   id="firstName"
+                                   th:field="*{firstName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{firstName}"
+                                  th:if="${#fields.hasErrors('firstName')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="lastName">Прізвище</label>
+                            <input class="form-control"
+                                   id="lastName"
+                                   th:field="*{lastName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{lastName}"
+                                  th:if="${#fields.hasErrors('lastName')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="email">Електрона пошта</label>
+                            <input class="form-control"
+                                   id="email"
+                                   th:field="*{email}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="phoneNumber">Номер телефону</label>
+                            <input class="form-control"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   pattern="^\+380\d{9}$"
+                                   placeholder="+380XXXXXXXXX"
+                                   th:field="*{phoneNumber}"
+                                   type="tel">
+                            <small>Приклад: +380971234567</small>
+                            <span class="text-danger" th:errors="*{phoneNumber}"
+                                  th:if="${#fields.hasErrors('phoneNumber')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="contactDescription" class="col-form-label">Додаткова інформація</label>
+                        <textarea class="form-control" id="contactDescription" name="contactDescription"
+                                  th:field="*{contactDescription}"></textarea>
+                        <span class="text-danger" th:errors="*{contactDescription}"
+                              th:if="${#fields.hasErrors('contactDescription')}"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-grid gap-2 col-3">
+                        <a class="btn btn-secondary" th:href="@{/contact/list}">Назад
+                        </a>
+                    </div>
+                    <div class="d-grid gap-2 me-2 col-3">
+                        <button class="btn btn-primary" type="submit">Зберегти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>
