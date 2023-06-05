@@ -124,7 +124,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public Company findByCompanyName(String companyName) {
         return companyRepository.findByCompanyName(companyName).orElseThrow(
-                () -> new EmptyResultDataAccessException("There's no such company with id " + companyName, 1));
+                () -> new EmptyResultDataAccessException("There's no such company with name " + companyName, 1));
 
     }
 }

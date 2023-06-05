@@ -130,6 +130,18 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyIdAndLastName(Long companyId, String lastName) {
+        return requestRepository.findAllByCompanyIdAndLastName(companyId, lastName);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Request> findAllByCompanyIdAndEmail(Long companyId, String email) {
+        return requestRepository.findAllByCompanyIdAndEmail(companyId, email);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Request> findAllByCompanyIdAndDeliveryMethod(Long companyId, DeliveryMethod deliveryMethod) {
         return requestRepository.findAllByCompanyIdAndDeliveryMethod(companyId, deliveryMethod);
     }

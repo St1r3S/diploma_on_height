@@ -11,5 +11,11 @@ public interface ProductService extends CrudService<Product, Long> {
 
     List<Product> findAllByCompanyId(Long companyId);
 
+    List<Product> findAllByWarehouseId(Long warehouseId);
+
+    List<Product> findAllByWarehouseIdAndProductType(Long warehouseId, ProductType productType);
+
+    List<Product> findAllByWarehouseIdAndProductName(Long warehouseId, String productName);
+
     Product findByProductTypeAndProductNameAndWarehouseIdAndCompanyId(ProductType productType, String productName, Long warehouseId, Long companyId);
 }

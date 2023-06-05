@@ -124,4 +124,54 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> findAllByCompanyId(Long companyId) {
         return contactRepository.findAllByCompanyId(companyId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Contact> findAllByCompanyIdAndLastName(Long companyId, String lastName) {
+        return contactRepository.findAllByCompanyIdAndLastName(companyId, lastName);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Contact> findAllByCompanyIdAndEmail(Long companyId, String email) {
+        return contactRepository.findAllByCompanyIdAndEmail(companyId, email);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Contact findByEmail(String email) {
+        return contactRepository.findByEmail(email).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such contact with email " + email, 1));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Contact findByPhoneNumber(String phoneNumber) {
+        return contactRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+                () -> new EmptyResultDataAccessException("There's no such contact with phoneNumber " + phoneNumber, 1));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(String email) {
+        try {
+            findByEmail(email);
+        } catch (EmptyResultDataAccessException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        try {
+            findByPhoneNumber(phoneNumber);
+        } catch (EmptyResultDataAccessException ex) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

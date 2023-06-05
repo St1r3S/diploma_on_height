@@ -11,6 +11,10 @@ public interface RequestService extends CrudService<Request, Long> {
 
     List<Request> findAllByCompanyId(Long companyId);
 
+    List<Request> findAllByCompanyIdAndLastName(Long companyId, String lastName);
+
+    List<Request> findAllByCompanyIdAndEmail(Long companyId, String email);
+
     List<Request> findAllByCompanyIdAndDeliveryMethod(Long companyId, DeliveryMethod deliveryMethod);
 
     List<Request> findAllByCompanyIdAndPaymentMethod(Long companyId, PaymentMethod paymentMethod);
