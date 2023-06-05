@@ -13,3 +13,8 @@ server:
     include-binding-errors: always
     include-message: always
 
+logging:
+  level:
+    org:
+      springframework:
+        security: ERROR
