@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Forbidden</title>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}"></div>
+        <div class="container mt-5 w-50">
+            <h2>Sorry, you do not have permission to view this page.</h2>
+            <br>
+            <h4>Click <a href="/">here</a>
+                to go back to homepage.</h4>
+            <div class="d-flex justify-content-between w-75">
+                Or try to log out and login from admin account.
+                <form name="logoutForm" action="/auth/logout" method="post">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

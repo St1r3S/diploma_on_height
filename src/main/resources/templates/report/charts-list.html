@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Charts</title>
+    <style>
+        .image-container {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <h2 class=" text-center">Звіти</h2>
+        <hr>
+        <div class="container mb-3">
+            <div class="row mb-3">
+                <div class="col-sm-6 ">
+                    <div class="image-container py-2">
+                        <img src="../../static/images/dummy.png" width="400"
+                             th:src="@{/images/dummy.png}"
+                             alt="dummy">
+                    </div>
+                </div>
+                <div class="col-sm-6 ">
+                    <div class="image-container py-2">
+                        <img src="../../static/images/dummy.png" width="400"
+                             th:src="@{/images/dummy.png}"
+                             alt="dummy">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <div class="image-container py-2">
+                        <img src="../../static/images/dummy.png" width="400"
+                             th:src="@{/images/dummy.png}"
+                             alt="dummy">
+                    </div>
+                </div>
+                <div class="col-sm-6 ">
+                    <div class="image-container py-2">
+                        <img src="../../static/images/dummy.png" width="400"
+                             th:src="@{/images/dummy.png}"
+                             alt="dummy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

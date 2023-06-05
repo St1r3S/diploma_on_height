@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>User profile</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}"></div>
+        <div class="container">
+            <h2 class=" text-center">Профіль</h2>
+            <hr>
+            <form th:action="@{/user/update/{id}(id=${userId})}" th:object="${user}" method="POST">
+                <input class="form-control"
+                       id="userRole"
+                       name="userRole"
+                       th:value="${role}"
+                       type="hidden">
+                <input class="form-control"
+                       id="companyId"
+                       name="company.id"
+                       th:value="${companyId}"
+                       type="hidden">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="firstName">Ім'я</label>
+                            <input class="form-control"
+                                   id="firstName"
+                                   placeholder="First name"
+                                   th:field="*{firstName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{firstName}"
+                                  th:if="${#fields.hasErrors('firstName')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="lastName">Прізвище</label>
+                            <input class="form-control"
+                                   id="lastName"
+                                   placeholder="Last name"
+                                   th:field="*{lastName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{lastName}"
+                                  th:if="${#fields.hasErrors('lastName')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="username">Логін</label>
+                            <input class="form-control"
+                                   id="username"
+                                   readonly
+                                   placeholder="Username"
+                                   th:field="*{username}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{username}"
+                                  th:if="${#fields.hasErrors('username')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="passwordHash">Пароль</label>
+                            <input class="form-control"
+                                   id="passwordHash"
+                                   placeholder="Password"
+                                   name="passwordHash"
+                                   th:value="${user.passwordHash}"
+                                   type="password">
+                            <span class="text-danger" th:errors="*{passwordHash}"
+                                  th:if="${#fields.hasErrors('passwordHash')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="email">Електрона пошта</label>
+                            <input class="form-control"
+                                   id="email"
+                                   placeholder="Email"
+                                   th:field="*{email}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="phoneNumber">Номер телефону</label>
+                            <input class="form-control"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   pattern="^\+380\d{9}$"
+                                   placeholder="+380XXXXXXXXX"
+                                   th:field="*{phoneNumber}"
+                                   type="tel">
+                            <small>Example: +380971234567</small>
+                            <span class="text-danger" th:errors="*{phoneNumber}"
+                                  th:if="${#fields.hasErrors('phoneNumber')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="birthday">Дата народження</label>
+                            <input class="form-control"
+                                   id="birthday"
+                                   placeholder="Birthday"
+                                   th:field="*{birthday}"
+                                   type="date">
+                            <span class="text-danger" th:errors="*{birthday}"
+                                  th:if="${#fields.hasErrors('birthday')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="gender">Гендер</label>
+                            <select class="form-select" id="gender" th:field="*{gender}">
+                                <option th:each="gender : ${genders}" th:text="${gender.value}"
+                                        th:value="${gender}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{gender}"
+                                  th:if="${#fields.hasErrors('gender')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="company">Компанія</label>
+                            <input class="form-control"
+                                   id="company"
+                                   readonly
+                                   th:field="*{company.companyName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{company.companyName}"
+                                  th:if="${#fields.hasErrors('company.companyName')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="department">Відділ</label>
+                            <select class="form-select" id="department" th:field="*{department}">
+                                <option th:each="department : ${departments}" th:text="${department.value}"
+                                        th:value="${department}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{department}"
+                                  th:if="${#fields.hasErrors('department')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="post">Посада</label>
+                            <select class="form-select" id="post" th:field="*{post}">
+                                <option th:each="post : ${posts}" th:text="${post.value}" th:value="${post}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{post}" th:if="${#fields.hasErrors('post')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-primary">Зберегти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Create warehouse</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container mt-3">
+            <h2 class=" text-center">Склад</h2>
+            <hr>
+            <form th:action="@{/warehouse/create}" th:object="${warehouse}" method="POST">
+                <input class="form-control"
+                       id="company"
+                       name="company.id"
+                       th:value="${companyId}"
+                       type="hidden">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="country">Країна</label>
+                            <input class="form-control"
+                                   id="country"
+                                   name="address.country"
+                                   th:field="*{address.country}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{address.country}"
+                                  th:if="${#fields.hasErrors('address.country')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="city">Місто</label>
+                            <input class="form-control"
+                                   id="city"
+                                   name="address.city"
+                                   th:field="*{address.city}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{address.city}"
+                                  th:if="${#fields.hasErrors('address.city')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="address">Адреса</label>
+                            <input class="form-control"
+                                   id="address"
+                                   name="address.address"
+                                   th:field="*{address.address}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{address.address}"
+                                  th:if="${#fields.hasErrors('address.address')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="zipCode">Поштовий індекс</label>
+                            <input class="form-control"
+                                   id="zipCode"
+                                   name="address.zipCode"
+                                   th:field="*{address.zipCode}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{address.zipCode}"
+                                  th:if="${#fields.hasErrors('address.zipCode')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <label for="classification" class="col-form-label">Класифікація</label>
+                        <select class="form-select" id="classification" name="classification" required>
+                            <option th:each="c : ${classifications}" th:text="${c.value}"
+                                    th:value="${c}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="phoneNumber">Номер телефону власника</label>
+                            <input class="form-control"
+                                   id="phoneNumber"
+                                   name="phoneNumber"
+                                   pattern="^\+380\d{9}$"
+                                   placeholder="+380XXXXXXXXX"
+                                   th:field="*{phoneNumber}"
+                                   type="tel">
+                            <small>Приклад: +380971234567</small>
+                            <span class="text-danger" th:errors="*{phoneNumber}"
+                                  th:if="${#fields.hasErrors('phoneNumber')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="description" class="col-form-label">Опис складу</label>
+                        <textarea class="form-control" id="description" name="description"
+                                  th:field="*{description}"></textarea>
+                        <span class="text-danger" th:errors="*{description}"
+                              th:if="${#fields.hasErrors('description')}"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-grid gap-2 col-3">
+                        <a class="btn btn-secondary" th:href="@{/warehouse/list}">Назад
+                        </a>
+                    </div>
+                    <div class="d-grid gap-2 me-2 col-3">
+                        <button class="btn btn-primary" type="submit">Додати</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Create product</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container mt-3">
+            <h2 class=" text-center">Товар</h2>
+            <hr>
+            <form th:action="@{/product/create(warehouseId=${warehouseId})}" th:object="${product}" method="POST">
+                <input class="form-control"
+                       id="company"
+                       name="company.id"
+                       th:value="${companyId}"
+                       type="hidden">
+                <input class="form-control"
+                       id="warehouse"
+                       name="warehouse.id"
+                       th:value="${warehouseId}"
+                       type="hidden">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="productType">Тип товару</label>
+                            <select class="form-select" id="productType" name="productType" required>
+                                <option th:each="t : ${types}" th:text="${t.value}"
+                                        th:value="${t}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-form-label" for="productName">Назва товару</label>
+                            <input class="form-control"
+                                   id="productName"
+                                   name="productName"
+                                   th:field="*{productName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{productName}"
+                                  th:if="${#fields.hasErrors('productName')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="unitPrice">Ціна за одиницю</label>
+                            <input class="form-control"
+                                   id="unitPrice"
+                                   name="unitPrice"
+                                   th:field="*{unitPrice}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{unitPrice}"
+                                  th:if="${#fields.hasErrors('unitPrice')}"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="priceCurrency">Валюта</label>
+                            <select class="form-select" id="priceCurrency" name="priceCurrency" required>
+                                <option th:each="c : ${currencies}" th:text="${c.value}"
+                                        th:value="${c}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="productQty" class="col-form-label">Кіль-сть на складі</label>
+                        <input type="number" class="form-control" id="productQty" name="productQty"
+                               value="1"
+                               min="1"
+                               required>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-grid gap-2 col-3">
+                        <a class="btn btn-secondary" th:href="@{/product/list(warehouseId=${warehouseId})}">Назад
+                        </a>
+                    </div>
+                    <div class="d-grid gap-2 me-2 col-3">
+                        <button class="btn btn-primary" type="submit">Додати</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

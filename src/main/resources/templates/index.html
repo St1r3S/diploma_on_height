@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Home</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container mt-3">
+            <div class="row">
+                <!-- News Section -->
+                <div class="col-md-6">
+                    <h3>Останні новини</h3>
+                    <hr>
+                    <div class="overflow-auto" style="max-height: 400px;">
+                        <p>З радістю оголошуємо, що наша система отримала оновлення, яке включає кілька нових функцій
+                            для
+                            зручної
+                            роботи із заявками. Тепер ви можете легко створювати, відстежувати та керувати заявками без
+                            зайвого
+                            зусилля. Використовуйте нові функції і насолоджуйтесь ще більш комфортною роботою з
+                            заявками!</p>
+                        <p>Нові можливості для роботи з контактами тепер доступні на нашому веб-сайті!
+                            Ми раді повідомити вам, що було додано декілька інноваційних функцій, які полегшать вам
+                            управляти
+                            контактами у нашій системі.</p>
+                        <p>Складайте зручно та швидко! Оновлення у системі додає нові функції для роботи зі складами та
+                            виправляє
+                            старі помилки у роботі з функціоналом складів.</p>
+                    </div>
+                </div>
+                <!-- Form Section -->
+                <div class="col-md-6">
+                    <h3>Створити заявку</h3>
+                    <hr>
+                    <form th:action="@{/request/add}" method="GET">
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">Назва компанії</label>
+                            <input type="text" class="form-control" id="companyName" name="companyName"
+                                   aria-describedby="formHelp"
+                                   required>
+                            <div id="formHelp" class="form-text">Почніть вводити назву бажаної компанії.</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9"></div>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-primary">Шукати</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>

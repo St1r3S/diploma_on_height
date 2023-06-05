@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/general/header :: head}">
+    </th:block>
+    <title>Contacts</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="main container clear-top">
+        <div th:replace="~{fragments/general/header :: header}">
+        </div>
+        <div class="container my-3">
+            <h2 class=" text-center">Контакти</h2>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <form method="get" th:href="@{/contact/list}">
+                        <div class="input-group">
+                            <input id="searchValue"
+                                   name="searchValue"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Шукати за параметром...">
+                            <button class="btn btn-outline-secondary" type="submit">Шукати</button>
+                        </div>
+                        <small>
+                            <div class="form-check form-check-inline searchbar-push">
+                                <input class="form-check-input" type="radio" name="searchParam" id="lastName"
+                                       value="lastName">
+                                <label class="form-check-label" for="lastName">Прізвище</label>
+                            </div>
+                            <div class="form-check form-check-inline searchbar-push">
+                                <input class="form-check-input" type="radio" name="searchParam" id="email"
+                                       value="email">
+                                <label class="form-check-label" for="email">Email</label>
+                            </div>
+                        </small>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <div class="btn-group" role="group" aria-label="Request Actions">
+                        <a class="btn btn-primary" th:href="@{/contact/create}">
+                            <i class="bi bi-plus"></i></a>
+                        <a class="btn btn-secondary" th:href="@{/contact/list}">
+                            <i class="bi bi-arrow-clockwise"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 th:if="${#lists.isEmpty(contacts)}">Контакти не знайдено!</h2>
+            </div>
+            <div th:if="${not #lists.isEmpty(contacts)}">
+                <div class="table-responsive mb-3">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th style="width:18%;">Ім'я</th>
+                            <th style="width:18%;">Прізвище</th>
+                            <th style="width:28%;">Email</th>
+                            <th style="width:28%;">Номер тел.</th>
+                            <th style="width:4%;"></th>
+                            <th style="width:4%;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="contact : ${contacts}">
+                            <td th:text="${contact.firstName}"></td>
+                            <td th:text="${contact.lastName}"></td>
+                            <td th:text="${contact.email}"></td>
+                            <td th:text="${contact.phoneNumber}"></td>
+                            <td class="align-middle">
+                                <a class="btn btn-primary"
+                                   th:href="@{/contact/edit/{id}(id=${contact.id})}"><i
+                                        class="bi bi-pencil"></i></a>
+                            </td>
+                            <td class="align-middle">
+                                <a class="btn btn-danger"
+                                   th:href="@{/contact/delete/{id}(id=${contact.id})}">
+                                    <i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/general/footer :: footer}"></div>
+</body>
+</html>
