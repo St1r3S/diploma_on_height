@@ -1,3 +1,11 @@
+CREATE TABLE companies
+(
+    id              BIGSERIAL PRIMARY KEY,
+    company_name    TEXT UNIQUE NOT NULL,
+    corporate_email TEXT UNIQUE NOT NULL,
+    corporate_phone TEXT UNIQUE NOT NULL
+);
+
 CREATE TABLE addresses
 (
     id          BIGSERIAL PRIMARY KEY,
@@ -7,14 +15,6 @@ CREATE TABLE addresses
     zip_code    TEXT NOT NULL,
     last_update DATE NOT NULL,
     UNIQUE (country, city, address, zip_code)
-);
-
-CREATE TABLE companies
-(
-    id              BIGSERIAL PRIMARY KEY,
-    company_name    TEXT UNIQUE NOT NULL,
-    corporate_email TEXT UNIQUE NOT NULL,
-    corporate_phone TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE warehouses

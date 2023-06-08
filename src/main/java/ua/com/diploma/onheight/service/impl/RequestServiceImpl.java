@@ -125,7 +125,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true)
     public List<Request> findAllByCompanyId(Long companyId) {
-        return requestRepository.findAllByCompanyId(companyId);
+        return requestRepository.findAllByCompanyIdOrderByIdDesc(companyId);
     }
 
     @Override

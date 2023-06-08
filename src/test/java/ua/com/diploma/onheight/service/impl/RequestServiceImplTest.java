@@ -34,9 +34,9 @@ class RequestServiceImplTest {
         Long companyId = 1L;
         Request request1 = new Request(1L, "John", "Doe", "john.doe@example.com", "123456789", null, DeliveryMethod.COURIER, "Address 1", PaymentMethod.CARD, null);
         Request request2 = new Request(2L, "Jane", "Smith", "jane.smith@example.com", "987654321", null, DeliveryMethod.COURIER, "Address 2", PaymentMethod.CASH, null);
-        List<Request> expected = List.of(request1, request2);
+        List<Request> expected = List.of(request2, request1);
 
-        when(requestRepository.findAllByCompanyId(companyId)).thenReturn(expected);
+        when(requestRepository.findAllByCompanyIdOrderByIdDesc(companyId)).thenReturn(expected);
         List<Request> actual = requestService.findAllByCompanyId(companyId);
 
         assertEquals(expected, actual);

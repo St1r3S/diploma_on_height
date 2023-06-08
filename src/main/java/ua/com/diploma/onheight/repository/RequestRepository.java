@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-    List<Request> findAllByCompanyId(Long companyId);
+    List<Request> findAllByCompanyIdOrderByIdDesc(Long companyId);
 
     List<Request> findAllByCompanyIdAndLastName(Long companyId, String lastName);
 
